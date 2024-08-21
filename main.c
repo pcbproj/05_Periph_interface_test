@@ -139,8 +139,6 @@ int main(void) {
 	GPIOE -> BSRR |= GPIO_BSRR_BS14;
 	GPIOE -> BSRR |= GPIO_BSRR_BS15;
 
-	//EEPROM_PageClear(EEPROM_RD_START_ADDR);	// предварительная очистка страницы
-											// чтобы можно было видеть записанные новые данные в массиве
   
 	while (1){
 		
