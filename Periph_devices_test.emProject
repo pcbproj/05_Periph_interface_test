@@ -1,6 +1,6 @@
 <!DOCTYPE CrossStudio_Project_File>
-<solution Name="interfaces_test" target="8" version="2">
-  <project Name="interfaces_test">
+<solution Name="Periph_devices_test" target="8" version="2">
+  <project Name="Periph_devices_test">
     <configuration
       LIBRARY_IO_TYPE="RTT"
       Name="Common"
@@ -56,15 +56,11 @@
       <folder Name="src">
         <file file_name="Lib/src/can.c" />
         <file file_name="Lib/src/gpio.c" />
-        <file file_name="Lib/src/i2c.c" />
-        <file file_name="Lib/src/spi.c" />
         <file file_name="Lib/src/usart.c" />
       </folder>
       <folder Name="inc">
         <file file_name="Lib/inc/can.h" />
         <file file_name="Lib/inc/gpio.h" />
-        <file file_name="Lib/inc/i2c.h" />
-        <file file_name="Lib/inc/spi.h" />
         <file file_name="Lib/inc/usart.h" />
       </folder>
       <file file_name="main.h" />

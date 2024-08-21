@@ -23,14 +23,14 @@
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="interfaces_test_Debug" sizeText="" addressText=""/>
  </Memory4>
  <Project>
-  <ProjectSessionItem path="interfaces_test"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test;CMSIS Files"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test;Script Files"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test;Source Files"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test;Source Files;inc"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test;Source Files;src"/>
-  <ProjectSessionItem path="interfaces_test;interfaces_test;System Files"/>
+  <ProjectSessionItem path="Periph_devices_test"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test;CMSIS Files"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test;Script Files"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test;Source Files"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test;Source Files;inc"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test;Source Files;src"/>
+  <ProjectSessionItem path="Periph_devices_test;Periph_devices_test;System Files"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="USART6/SR;USART6/DR;USART6/BRR;USART6/CR1;USART6/CR2;USART6/CR3;USART6/GTPR" binaryNodes="" asciiNodes="" openNodes="USART6;USART6/SR;USART6/DR" name="interfaces_test" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -57,13 +57,13 @@
  <Watch1>
   <Watches active="1" update="Never">
    <Watchpoint expression="S1_cnt" name="S1_cnt" radix="-1" linenumber="37" filename="Lib/src/gpio.c"/>
-   <Watchpoint expression="i2c_rx_array" name="i2c_rx_array" radix="16" linenumber="358" filename="main.c"/>
-   <Watchpoint expression="delay_cnt" name="delay_cnt" radix="10" linenumber="102" filename="main.c"/>
-   <Watchpoint expression="i2c_tx_array" name="i2c_tx_array" radix="-1" linenumber="260" filename="main.c"/>
-   <Watchpoint expression="I2C_ErrCode" name="I2C_ErrCode" radix="16" linenumber="258" filename="main.c"/>
-   <Watchpoint expression="SPI2_rd_byte" name="SPI2_rd_byte" radix="-1" linenumber="323" filename="main.c"/>
-   <Watchpoint expression="CAN2_RxFlag" name="CAN2_RxFlag" radix="-1" linenumber="353" filename="main.c"/>
-   <Watchpoint expression="CAN2_RxState" name="CAN2_RxState" radix="-1" linenumber="191" filename="main.c"/>
+   <Watchpoint expression="i2c_rx_array" name="i2c_rx_array" radix="16" linenumber="338" filename="main.c"/>
+   <Watchpoint expression="delay_cnt" name="delay_cnt" radix="10" linenumber="82" filename="main.c"/>
+   <Watchpoint expression="i2c_tx_array" name="i2c_tx_array" radix="-1" linenumber="240" filename="main.c"/>
+   <Watchpoint expression="I2C_ErrCode" name="I2C_ErrCode" radix="16" linenumber="238" filename="main.c"/>
+   <Watchpoint expression="SPI2_rd_byte" name="SPI2_rd_byte" radix="-1" linenumber="303" filename="main.c"/>
+   <Watchpoint expression="CAN2_RxFlag" name="CAN2_RxFlag" radix="-1" linenumber="333" filename="main.c"/>
+   <Watchpoint expression="CAN2_RxState" name="CAN2_RxState" radix="-1" linenumber="171" filename="main.c"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -76,8 +76,8 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="32" y="67" useTextEdit="1" path="main.c" left="0" selected="1" top="201" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="6" useTextEdit="1" path="main.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="52" useTextEdit="1" path="main.c" left="0" top="30" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="2" useTextEdit="1" path="main.h" left="0" selected="1" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="39" useTextEdit="1" openedFrom="D:/Work/PCBteach/docs/02_MY_projects/MCU/04_Board_Test/01_GPIO_interfaces_Test/main.c" path="Lib/src/usart.c" left="0" top="34" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="8" useTextEdit="1" path="Lib/inc/usart.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="97" useTextEdit="1" path="Lib/src/i2c.c" left="0" top="57" codecName="Default"/>
