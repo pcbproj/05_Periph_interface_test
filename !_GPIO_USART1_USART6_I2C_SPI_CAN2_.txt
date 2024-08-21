@@ -1,0 +1,12 @@
+GPIO_
+USART1_
+USART6_
+I2C_
+SPI_
+CAN2_
+1-WIRE
+
+------- добавить --------
+LCD16x02
+RS485-TTL (USART6)
+ADC Arduino потенциометр
