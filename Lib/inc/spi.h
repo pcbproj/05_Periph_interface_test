@@ -1,3 +1,6 @@
+#ifndef SPI_H
+#define SPI_H
+
 #include "stm32f4xx.h"
 
 #define EN_RST	0x66
@@ -25,3 +28,5 @@
 void SPI2_Init(void);
 uint8_t w25send(uint8_t data);
 
+
+#endif

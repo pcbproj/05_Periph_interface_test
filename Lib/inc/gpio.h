@@ -1,3 +1,6 @@
+#ifndef GPIO_H
+#define GPIO_H
+
 #include "stm32f4xx.h"
 
 #define BTN_CHECK_MS			10
@@ -11,3 +14,4 @@ void BTN_Check(uint16_t *ms_count,	// current ms counter value
 
 
 
+#endif

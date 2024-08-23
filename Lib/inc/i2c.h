@@ -1,3 +1,6 @@
+#ifndef I2C_H
+#define I2C_H
+
 #include "stm32f4xx.h"
 
 
@@ -40,3 +43,4 @@ uint16_t I2C_Write(char start_addr, char data[], uint16_t data_len);
 uint16_t EEPROM_PageClear(char start_addr);
 uint16_t I2C_Read(char start_addr, char rd_data[], uint16_t data_len);
 
+#endif
