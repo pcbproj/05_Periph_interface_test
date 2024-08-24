@@ -76,18 +76,18 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="110" useTextEdit="1" path="main.c" left="0" top="211" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="76" useTextEdit="1" path="main.c" left="0" top="60" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="18" y="5" useTextEdit="1" path="main.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="18" y="15" useTextEdit="1" path="Lib/inc/lcd1602.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="6" y="12" useTextEdit="1" path="Lib/inc/adc.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="27" y="93" useTextEdit="1" path="Lib/src/lcd1602.c" left="0" top="52" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="4" y="30" useTextEdit="1" path="Lib/src/adc.c" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="4" y="30" useTextEdit="1" path="Lib/src/adc.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="8" y="44" useTextEdit="1" openedFrom="D:/Work/PCBteach/docs/02_MY_projects/MCU/04_Board_Test/05_Periph_Test/05_Periph_interface_test/Lib/src/1wire.c" path="Lib/inc/1wire.h" left="0" top="27" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="33" y="119" useTextEdit="1" path="Lib/src/1wire.c" left="0" top="104" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="33" y="119" useTextEdit="1" path="Lib/src/1wire.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="14" useTextEdit="1" path="lib/inc/crc.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="13" useTextEdit="1" path="Lib/inc/delay.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="23" useTextEdit="1" path="Lib/src/delay.c" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Lib/inc/gpio.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="6" useTextEdit="1" path="Lib/inc/delay.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="1" y="5" useTextEdit="1" path="Lib/src/delay.c" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="4" useTextEdit="1" path="Lib/inc/gpio.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="Lib/src/gpio.c" left="0" top="0" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="Periph_devices_test" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="GDB Server" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Work/PCBteach/docs/02_MY_projects/MCU/04_Board_Test/05_Periph_Test/05_Periph_interface_test/Lib/src" debugSearchPath="" autoConnectCapabilities="1343"/>

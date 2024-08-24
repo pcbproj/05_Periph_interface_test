@@ -2,7 +2,6 @@
 
 
 
-
 void Delay_us(uint32_t us){		// фунукция задержки на 1 мкс
 	delay_us = 0;
 	while(delay_us < us){
