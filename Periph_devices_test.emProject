@@ -58,14 +58,24 @@
         <file file_name="Lib/src/gpio.c" />
         <file file_name="Lib/src/usart.c" />
         <file file_name="Lib/src/adc.c" />
-        <file file_name="Lib/src/lcd1602.c" />
+        <file file_name="Lib/src/lcd1602.c">
+          <configuration Name="Debug" build_exclude_from_build="Yes" />
+        </file>
+        <file file_name="Lib/src/delay.c" />
+        <file file_name="Lib/src/1wire.c" />
+        <file file_name="Lib/src/crc.c" />
       </folder>
       <folder Name="inc">
         <file file_name="Lib/inc/can.h" />
         <file file_name="Lib/inc/gpio.h" />
         <file file_name="Lib/inc/usart.h" />
         <file file_name="Lib/inc/adc.h" />
-        <file file_name="Lib/inc/lcd1602.h" />
+        <file file_name="Lib/inc/lcd1602.h">
+          <configuration Name="Debug" build_exclude_from_build="Yes" />
+        </file>
+        <file file_name="Lib/inc/delay.h" />
+        <file file_name="Lib/inc/1wire.h" />
+        <file file_name="Lib/inc/crc.h" />
       </folder>
       <file file_name="main.h" />
     </folder>

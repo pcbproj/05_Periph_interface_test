@@ -2,6 +2,7 @@
 #define GPIO_H
 
 #include "stm32f4xx.h"
+#include "delay.h"
 
 #define BTN_CHECK_MS			10
 #define	BTN_PRESS_CNT			4 

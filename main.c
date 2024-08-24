@@ -67,7 +67,7 @@ LCD16x02 - текстовый знакосинтезирующий экран с
 #include "main.h"
 
 
-#define COUNTER_1000_MS		1000	// 1000 ms for 1 second 
+
 
 #define I2C_ARRAYS_LEN		8
 
@@ -77,29 +77,50 @@ char i2c_rx_array[I2C_ARRAYS_LEN] = {};	// Массив, куда будут ч�
 
 
 uint16_t btn_count = 0;	// счетчик мс для опроса кнопок
-uint16_t sec_count = 0;	// счетчик секунды для оотправки лога и сообщений
-uint16_t delay1_cnt = 0; // счетчик мс для задержек
-uint16_t delay2_cnt = 0; // счетчик мс для задержек
+uint16_t sec_count = 0;	// счетчик секунды для отправки лога и сообщений
 
 
 void RCC_Init(void);
 
 
 
-void Delay_ms(uint16_t ms){
-	delay1_cnt = 0;
-	while(delay1_cnt < ms){}; 
-}
+//void Delay_ms(uint16_t ms){
+//	delay1_cnt = 0;
+//	while(delay1_cnt < ms*1000){}; 
+//}
 
 
 
 
 
-void SysTick_Handler(void){		// прервание от Systick таймера, выполняющееся с периодом 1000 мкс
-	btn_count++;
-	sec_count++;
-	delay1_cnt++;
-	delay2_cnt++;
+void SysTick_Handler(void){		// прервание от Systick таймера, выполняющееся с периодом 1 мкс
+	uint16_t static us_counter = 0;
+	uint16_t static ms_counter = 0;
+	uint32_t static sec_counter = 0;
+	if( us_counter < 1000 ){	// us timer
+		us_counter++;
+		delay_us++;
+	}
+	else{					// ms timer
+		us_counter = 0;
+		
+		btn_count++;
+		
+		if(ms_counter < 1000){ 
+			ms_counter++;	
+			delay_ms++;
+		}
+		else{				// sec timer
+			ms_counter = 0;
+
+			sec_count++;
+			
+			if(sec_counter < 1000) 
+				sec_counter++;	
+			else 
+				sec_counter = 0;
+		}
+	} 
 }
 
 
@@ -128,7 +149,7 @@ int main(void) {
 	char CAN2_TxData[CAN_TX_DATA_LEN] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
 	char CAN2_RxData[CAN_RX_DATA_LEN] = {};
 
-  	
+  	uint16_t ADC1_sample = 0;
   	
   	RCC_Init();
   	
@@ -137,10 +158,10 @@ int main(void) {
 	USART6_Init();
 
 	CAN2_Init();
+
+	ADC1_Init();
   	
-  	SysTick_Config(84000);		// настройка SysTick таймера на время отрабатывания = 1 мс
-								// 84000 = (AHB_freq / время_отрабатывания_таймера_в_мкс)
-								// 84000 = 84_000_000 Гц / 1000 мкс; 
+  	SysTick_Config(84);		// настройка SysTick таймера на время отрабатывания = 1 мкс
    
 	//---- turn off leds ---------- 
 	GPIOE -> BSRR |= GPIO_BSRR_BS13;
@@ -187,10 +208,13 @@ int main(void) {
 
 
 		//========== ADC measure =============
+		ADC1_StartConversion();
+		ADC1_sample = ADC1_Read();
+		
 
 
 		//==== DS18B20 temper measure ============
-
+		
 
 
 
