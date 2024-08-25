@@ -71,11 +71,10 @@ void LCD_Write4b( uint8_t data_com, uint8_t symbol, int half_bytes_number ){
 	
 	if(data_com == OP_DATA) RS_HIGH();
 	else RS_LOW();
+	tx_high_half_byte = symbol;
 
 	for(uint8_t i = 0; i < half_bytes_number; i++){
 		E_HIGH();
-		tx_high_half_byte = symbol;
-
 		//----- output half high byte data onto data-pins -----
 		if(tx_high_half_byte & 0x80) DB7_HIGH();
 		else DB7_LOW();
