@@ -200,10 +200,9 @@ int main(void) {
 
 		//==== DS18B20 temper measure ============
 		Convert_Temperature();
-
 		ReadScratchpad(scratch_array);
-		rx_temper = Scratch_To_Temperature(scratch_array);	// TODO проверить на отрицательные температуры
-		temper_to_show = Temperature_CalcFloat(rx_temper);	// TODO проверить на отрицательные температуры
+		rx_temper = Scratch_To_Temperature(scratch_array);
+		temper_to_show = Temperature_CalcFloat(rx_temper);
 
 
 		//======= LCD1602 show data ===========

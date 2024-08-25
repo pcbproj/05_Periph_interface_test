@@ -180,7 +180,7 @@ uint16_t Scratch_To_Temperature(uint8_t scratch_mem[]){
 
 }
 
-// TODO: Проверить эту функцияю!!!!
+
 /*************
 Функция вычисления температуры в дробном виде (float) со знаком.
 Выдает значение со знаком
@@ -192,7 +192,7 @@ float Temperature_CalcFloat(uint16_t temper_in){
 		temper_float = (float)temper_in / 16;
 	}
 	else{	// если отрицательные температуры
-		temper_float = ( 0 - (float)temper_in / 16 );
+		temper_float = ((float)temper_in / 16 ) - 4096;
 	}
 	return temper_float;
 }
