@@ -68,27 +68,11 @@ LCD16x02 - текстовый знакосинтезирующий экран с
 
 
 
-
-//#define I2C_ARRAYS_LEN		8
-
-
-//char i2c_tx_array[I2C_ARRAYS_LEN] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };	// Массив записываетмый в EEPROM
-//char i2c_rx_array[I2C_ARRAYS_LEN] = {};	// Массив, куда будут читаться данные из EEPROM
-
-
 uint16_t btn_count = 0;	// счетчик мс для опроса кнопок
 uint16_t sec_count = 0;	// счетчик секунды для отправки лога и сообщений
 
 
 void RCC_Init(void);
-
-
-
-//void Delay_ms(uint16_t ms){
-//	delay1_cnt = 0;
-//	while(delay1_cnt < ms*1000){}; 
-//}
-
 
 
 

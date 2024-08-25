@@ -3,8 +3,8 @@
 
 #include "stm32f407xx.h"
 
-uint32_t delay_us = 0;
-uint32_t delay_ms = 0;
+extern uint32_t delay_us;
+extern uint32_t delay_ms;
 
 
 void Delay_us(uint32_t us);
