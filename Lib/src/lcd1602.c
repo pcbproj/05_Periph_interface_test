@@ -46,6 +46,20 @@ void LCD_DataPinsOutput(void){
 }
 
 
+/******
+Функция собирает данные с выводов DB7-DB4 в младшую половину байта
+*****/
+uint8_t GPIO_ReadInputData(void){
+	uint8_t rx_temp;
+	if(CHECK_DB7()) rx_temp = 0x08;
+	else rx_temp = 0x00;
+
+	if(CHECK_DB6()) rx_temp |= 0x04;
+	if(CHECK_DB5()) rx_temp |= 0x02;
+	if(CHECK_DB4()) rx_temp |= 0x01;
+
+	return rx_temp;
+}
 
 
   
@@ -96,33 +110,29 @@ return(7) - BusyFlag value
 return(6:0) - AddressCounter value	
 */
 uint8_t Read_BF_Addr( void ){
-	uint16_t RxPortVal = 0x0000;
-	uint8_t RxDataTemp = 0x00;
+	uint8_t RxDataTemp;
 	uint8_t RxData = 0x00;
 	
 	LCD_DataPinsInput();
 	
-	GPIO_SetBits( LCD_PORT, RW );	 // set bit RW for reading
-	for(int i=0; i<2; i++){
-		GPIO_SetBits( LCD_PORT, E );  // set bit E
-		//-------- delay abount 800 ns --------
-		delay_400ns(2); //28
+	RW_HIGH();
+	for(int i=0; i < 2; i++){
+		E_HIGH();
+		Delay_us(1);
 		//----------------------------------
-		RxPortVal = GPIO_ReadInputData( LCD_PORT ); // read data
-		RxDataTemp = (uint8_t)( ( RxPortVal >> 8 ) & 0x000F );
-		RxData = ( RxData | RotateBits_4( RxDataTemp ) );
+		RxDataTemp = GPIO_ReadInputData(); // read data
 		//----- shift received half word into MSb position -----	
-		RxData = ( RxData << ( 4*(1-i) ) );
-		GPIO_ResetBits( LCD_PORT, E );
-		delay_400ns(1);
+		RxData = ( RxDataTemp << ( 4*(1-i) ) );
+		E_LOW();
+		Delay_us(1);
 	}
 	
-	GPIO_ResetBits( LCD_PORT, RW );	 // set bit RW for reading
-	
+	E_LOW();
 	LCD_DataPinsOutput();
 
-	GPIO_Write( LCD_PORT, 0x0000 );	 // clear bits A0, E and RW
-		
+	//GPIO_Write( LCD_PORT, 0x0000 );	 // clear bits A0, E and RW
+	RS_LOW();
+	RW_LOW();	
 	return RxData;
 }
 

@@ -59,6 +59,11 @@
 #define DB4_HIGH()	(LCD_DB4_PORT->BSRR |= 1 << (DB4_PIN_NUM + 16))
 #define DB4_LOW()	(LCD_DB4_PORT->BSRR |= 1 << DB4_PIN_NUM)
 
+#define CHECK_DB7()	(LCD_DB7_PORT->IDR & (1 << DB7_PIN_NUM))
+#define CHECK_DB6()	(LCD_DB6_PORT->IDR & (1 << DB6_PIN_NUM))
+#define CHECK_DB5()	(LCD_DB5_PORT->IDR & (1 << DB5_PIN_NUM))
+#define CHECK_DB4()	(LCD_DB4_PORT->IDR & (1 << DB4_PIN_NUM))
+
 
 
 #define LCD_DATAPINS_MASK  0x0F00
@@ -149,6 +154,8 @@ void LCD_Write4b( uint8_t data_com, uint8_t symbol, int half_bytes_number );
 void LCD_DataPinsInput(void);
 
 void LCD_DataPinsOutput(void);
+
+uint8_t GPIO_ReadInputData(void);
 
 /*---------- LCD COMMANDS -----------------*/
 void ClearDisplay( void );
