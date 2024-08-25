@@ -32,7 +32,7 @@ void LCD_GPIOInit(void){
 
 
   
-void LCD_Write4b( uint8_t data_com, uint8_t symbol, int cycles ){
+void LCD_Write4b( uint8_t data_com, uint8_t symbol, int half_bytes_number ){
 	uint8_t tx_high_half_byte;
 	
 	E_LOW();
@@ -41,7 +41,7 @@ void LCD_Write4b( uint8_t data_com, uint8_t symbol, int cycles ){
 	if(data_com == OP_DATA) RS_HIGH();
 	else RS_LOW();
 
-	for(uint8_t i = 0; i < cycles; i++){
+	for(uint8_t i = 0; i < half_bytes_number; i++){
 		E_HIGH();
 		tx_high_half_byte = symbol;
 
@@ -118,13 +118,13 @@ void BF_Wait( void ){
 }
 
 void ClearDisplay( void ){
-	LCD_Write4b( (uint8_t)OP_COM, 0x01, 2 );
+	LCD_Write4b( (uint8_t)OP_COM, 0x01, WHOLE_BYTE );
 	BF_Wait();	
 }
 
 
 void ReturnHome( void ){
-	LCD_Write4b( (uint8_t)OP_COM, 0x02, 2 );
+	LCD_Write4b( (uint8_t)OP_COM, 0x02, WHOLE_BYTE );
 	BF_Wait();	
 	
 }
@@ -140,7 +140,7 @@ ID_SH(2) always must be = 1
 other bits of ID_SH must be zeroes
 */
 void EntryModeSet( uint8_t ID_SH ){
-	LCD_Write4b( (uint8_t)OP_COM, ( ID_SH | 0x40 ), 2 );
+	LCD_Write4b( (uint8_t)OP_COM, ( ID_SH | 0x40 ), WHOLE_BYTE );
 	BF_Wait();	
 } 
 
@@ -155,7 +155,7 @@ DCB(2) = 1 - display ON
 DCB(2) = 0 - display OFF 	
 */
 void Display_ON_OFF( uint8_t DCB ){
-	LCD_Write4b( (uint8_t)OP_COM, (DCB | 0x08), 2 );
+	LCD_Write4b( (uint8_t)OP_COM, (DCB | 0x08), WHOLE_BYTE );
 	BF_Wait();	
 
 }
@@ -171,7 +171,7 @@ SC_RL(3) - select what to be shifted
 SC_RL(4) = 1 - always
 */
 void CursorDisplayShift( uint8_t SC_RL ){
-	LCD_Write4b( (uint8_t)OP_COM, (SC_RL | 0x10), 2 );
+	LCD_Write4b( (uint8_t)OP_COM, (SC_RL | 0x10), WHOLE_BYTE );
 	BF_Wait();	
 }
 
@@ -187,13 +187,13 @@ DL_P(4) - select datawidth of interface
 	DL_P(4) = 0 - 4 bit data width interface
 */
 void FunctionSet( uint8_t DL_P ){
-	LCD_Write4b( (uint8_t)OP_COM, ( DL_P | 0x28 ), 2 );
+	LCD_Write4b( (uint8_t)OP_COM, ( DL_P | 0x28 ), WHOLE_BYTE );
 	BF_Wait();	
 }
 
 // used ONLY FOR LCD Initialization
 void FunctionSet_HALF( uint8_t DL_P ){
-	LCD_Write4b( (uint8_t)OP_COM, ( DL_P | 0x28 ), 1 );
+	LCD_Write4b( (uint8_t)OP_COM, ( DL_P | 0x28 ), HIGH_HALF_BYTE );
 }
 
 
@@ -202,7 +202,7 @@ ADDR(6:0) - set DDRAM Address
 ADDR(7) = 1 always	
 */
 void Set_DDRAM_Addr( uint8_t ADDR ){
-	LCD_Write4b( (uint8_t)OP_COM, ( ADDR | 0x80 ), 2 );
+	LCD_Write4b( (uint8_t)OP_COM, ( ADDR | 0x80 ), WHOLE_BYTE );
 	BF_Wait();	
 }
 
@@ -238,7 +238,7 @@ void DisplayInit_4b( void ){
 
 
 void LCD_WriteChar( uint8_t data ){
-	LCD_Write4b( (uint8_t)OP_DATA, data, 2 );
+	LCD_Write4b( (uint8_t)OP_DATA, data, WHOLE_BYTE );
 	BF_Wait();
 }
 

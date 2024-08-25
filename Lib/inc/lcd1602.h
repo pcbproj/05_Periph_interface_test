@@ -69,7 +69,8 @@
 //------ data_com constant value ----
 #define OP_COM             0
 #define OP_DATA            1
-
+#define HIGH_HALF_BYTE		1
+#define WHOLE_BYTE			2
 
 //-------- LCD bits mask ----------------
 #define BF_MASK            0x80
@@ -133,28 +134,7 @@
 #define SYMB_RUS_YA      0xDF
 #define SYMB_SPACE       0x20
 
-/*
-void RS_HIGH(void);
-void RS_LOW(void);
 
-void E_HIGH(void);
-void E_LOW(void);
-
-void RW_HIGH(void);
-void RW_LOW(void);
-
-void DB7_HIGH(void);
-void DB7_LOW(void);
-
-void DB6_HIGH(void);
-void DB6_LOW(void);
-
-void DB5_HIGH(void);
-void DB5_LOW(void);
-
-void DB4_HIGH(void);
-void DB4_LOW(void);
-*/
 
 /*------- LOW LEVEL FUNCTIONS FOR LCD --------------*/
 void LCD_GPIOInit(void);
@@ -164,7 +144,7 @@ data_com - select write data or write command
 	data_com = 1 - write data
 	data_com = 0 - write command
 */
-void LCD_Write4b( uint8_t data_com, uint8_t symbol, int cycles );
+void LCD_Write4b( uint8_t data_com, uint8_t symbol, int half_bytes_number );
 
 
 /*---------- LCD COMMANDS -----------------*/
