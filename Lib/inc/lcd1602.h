@@ -15,18 +15,51 @@
 #include "stm32f4xx.h"
 #include "delay.h"
 
-//#include "stm32f10x.h"
-
 /*--------- LCD1602 PINOUTS --------*/
-#define LCD_PORT           GPIOB
+// WARNING!!! При смене распиновки требуется поправить функцию LCD_GPIOInit(void)
+
+#define LCD_RS_PORT         GPIOE	// RS  = A0 для некоторых LCD-индикаторов
+#define LCD_RW_PORT			GPIOE
+#define LCD_E_PORT          GPIOE 
+
+#define LCD_DB7_PORT		GPIOE
+#define LCD_DB6_PORT		GPIOE
+#define LCD_DB5_PORT		GPIOE
+#define LCD_DB4_PORT		GPIOE
 				           
-#define A0                 GPIO_Pin_5  // data = 1 or command = 0 selection
-#define RW                 GPIO_Pin_6  // read = 1 or write = 0 selection
-#define E                  GPIO_Pin_7  // enable operation = 1 or disable operation = 0
-#define DB7                GPIO_Pin_8
-#define DB6                GPIO_Pin_9
-#define DB5                GPIO_Pin_10
-#define DB4                GPIO_Pin_11
+#define RS_PIN_NUM 			9  // data = 1 or command = 0 selection. RS  = A0 для некоторых LCD-индикаторов
+#define RW_PIN_NUM 			0  // read = 1 or write = 0 selection
+#define E_PIN_NUM  			1  // enable operation = 1 or disable operation = 0
+
+#define DB7_PIN_NUM			7
+#define DB6_PIN_NUM			6
+#define DB5_PIN_NUM			5
+#define DB4_PIN_NUM			4
+
+
+#define RS_LOW()	(LCD_RS_PORT->BSRR |= 1 << (RS_PIN_NUM + 16))
+#define RS_HIGH()	(LCD_RS_PORT->BSRR |= 1 << RS_PIN_NUM)
+
+#define E_LOW()		(LCD_E_PORT->BSRR |= 1 << (E_PIN_NUM + 16))
+#define E_HIGH()	(LCD_E_PORT->BSRR |= 1 << E_PIN_NUM)
+
+#define RW_LOW()	(LCD_RW_PORT->BSRR |= 1 << (RW_PIN_NUM + 16))
+#define RW_HIGH()	(LCD_RW_PORT->BSRR |= 1 << RW_PIN_NUM)
+
+#define DB7_HIGH()	(LCD_DB7_PORT->BSRR |= 1 << (DB7_PIN_NUM + 16))
+#define DB7_LOW()	(LCD_DB7_PORT->BSRR |= 1 << DB7_PIN_NUM)
+
+#define DB6_HIGH()	(LCD_DB6_PORT->BSRR |= 1 << (DB6_PIN_NUM + 16))
+#define DB6_LOW()	(LCD_DB6_PORT->BSRR |= 1 << DB6_PIN_NUM)
+
+
+#define DB5_HIGH()	(LCD_DB5_PORT->BSRR |= 1 << (DB5_PIN_NUM + 16))
+#define DB5_LOW()	(LCD_DB5_PORT->BSRR |= 1 << DB5_PIN_NUM)
+
+#define DB4_HIGH()	(LCD_DB4_PORT->BSRR |= 1 << (DB4_PIN_NUM + 16))
+#define DB4_LOW()	(LCD_DB4_PORT->BSRR |= 1 << DB4_PIN_NUM)
+
+
 
 #define LCD_DATAPINS_MASK  0x0F00
 
@@ -66,7 +99,7 @@
 #define CODEPAGE_1         0x02
 
   
-/*
+/**************
  * RUSSIAN symbols high register codes
  * get from char = 'Ю' for example
  * must be added 48(dec) = 0x30 for correct 
@@ -75,7 +108,7 @@
  * 'А' = 0x90 but must be 0xC0 for LCD CODE_PAGE 1 
  * 'Я' = 0xAF but must be 0xDF for LCD CODE_PAGE 1
  * 
- * */
+ * ************/
 
 #define ASCII_RUS_A      0x90
 #define ASCII_RUS_YA     0xAF
@@ -100,37 +133,31 @@
 #define SYMB_RUS_YA      0xDF
 #define SYMB_SPACE       0x20
 
+/*
+void RS_HIGH(void);
+void RS_LOW(void);
 
+void E_HIGH(void);
+void E_LOW(void);
 
+void RW_HIGH(void);
+void RW_LOW(void);
 
+void DB7_HIGH(void);
+void DB7_LOW(void);
 
+void DB6_HIGH(void);
+void DB6_LOW(void);
 
+void DB5_HIGH(void);
+void DB5_LOW(void);
 
-
-/*------ Delay functions ---------------------------*/
-void delay_400ns( uint16_t n );
-
-void delay_800ns( uint16_t n );
-
-
-
-/*--- Rotate bits functions due not optimal pinout ----*/
-/* Rotate all bits in ByteIn */
-uint8_t RotateBits_8( uint8_t ByteIn );
-
-/* Rotate low 4 bits 
- In ByteOut bits(7:4) are zeroes
- in ByteOut bits(3:0) are rotated bits(3:0) from ByteIn
+void DB4_HIGH(void);
+void DB4_LOW(void);
 */
-uint8_t RotateBits_4( uint8_t ByteIn );
-
-
 
 /*------- LOW LEVEL FUNCTIONS FOR LCD --------------*/
 void LCD_GPIOInit(void);
-
-void LCD_DataPinsInput(void);
-
 
 /*
 data_com - select write data or write command

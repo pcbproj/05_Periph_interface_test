@@ -13,99 +13,62 @@
 
 
 
-void delay_400ns( uint16_t n ){
-	for(uint16_t i=0; i < n; i++){
-		__NOP();
-	}
-}
-
-
-void delay_800ns( uint16_t n ){
-	for(uint16_t i=0; i < n; i++){
-		delay_400ns(2);
-	}
-}
-
-
-uint8_t RotateBits_8( uint8_t ByteIn ){
-	uint8_t ByteOut = 0x00;
-	
-	for (int i = 0; i < 8; ++i){
-		ByteOut = ByteOut | ( ( ByteIn >> i) & 1 ? 1 << (7 - i) : 0);
-	}
-	
-	return ByteOut;
-}
-
-
-uint8_t RotateBits_4( uint8_t ByteIn ){
-	uint8_t ByteOut = 0x00;
-	
-	for (int i = 0; i < 4; ++i){
-		ByteOut = ByteOut | ( ( ByteIn >> i) & 1 ? 1 << (3 - i) : 0);
-	}
-	
-	return ByteOut;
-}
-
-
 
 void LCD_GPIOInit(void){
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
 	
+	LCD_RS_PORT -> MODER |= ( 1 << RS_PIN_NUM * 2);	// pin for LCD_RS configured as output 
+	LCD_RW_PORT -> MODER |= ( 1 << RW_PIN_NUM * 2);
+	
+	LCD_E_PORT -> MODER |= ( 1 << E_PIN_NUM * 2);	
+	
+	LCD_DB7_PORT -> MODER |= ( 1 << DB7_PIN_NUM * 2);	// pin for LCD_DB4 - DB7 configured as output 
+	LCD_DB6_PORT -> MODER |= ( 1 << DB6_PIN_NUM * 2);
+	LCD_DB5_PORT -> MODER |= ( 1 << DB5_PIN_NUM * 2);
+	LCD_DB4_PORT -> MODER |= ( 1 << DB4_PIN_NUM * 2);
 	
 }
 
 
-void LCD_DataPinsInput(void){
-	/*
-	GPIO_InitTypeDef GPIO_InitStructure;
-	
-	if(LCD_PORT == GPIOA){
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	}
-	else if(LCD_PORT == GPIOB){
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-	}
-	
-	GPIO_InitStructure.GPIO_Pin = DB4 | DB5 | DB6 | DB7;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	GPIO_Init(LCD_PORT, &GPIO_InitStructure);
-	*/
-}
 
   
 void LCD_Write4b( uint8_t data_com, uint8_t symbol, int cycles ){
-	uint16_t PortVal;
-	uint8_t TempSymbolVal;
-	uint16_t TempPortVal;
+	uint8_t tx_high_half_byte;
 	
-	GPIO_Write( LCD_PORT, 0x0000 );	 // clear bits A0, E and RW
+	E_LOW();
+	RW_LOW();
 	
-	//- delay about 70 ns and rotate bits due wrong LCD connection ---------
-	TempSymbolVal = RotateBits_8( symbol );
-	//------------------------------------
-	TempPortVal = ( (uint16_t)TempSymbolVal & 0x00FF );
-	
-	for(uint8_t i=0; i<cycles; i++){
-		PortVal = ( ( ( ( TempPortVal ) & 0x000F ) << 8 ) );
+	if(data_com == OP_DATA) RS_HIGH();
+	else RS_LOW();
+
+	for(uint8_t i = 0; i < cycles; i++){
+		E_HIGH();
+		tx_high_half_byte = symbol;
+
+		//----- output half high byte data onto data-pins -----
+		if(tx_high_half_byte & 0x80) DB7_HIGH();
+		else DB7_LOW();
 		
-		if( data_com == OP_DATA ){
-			GPIO_SetBits( LCD_PORT, A0 );
-			PortVal = ( PortVal | A0 );
-		}
-		GPIO_Write( LCD_PORT, PortVal );	
-		GPIO_SetBits( LCD_PORT, E );
-		//----- wait about 200 ns-----------
-		delay_400ns(1);
-		//----------------------------------
-		GPIO_ResetBits( LCD_PORT, E );
-		TempPortVal = ( ( (uint16_t)TempSymbolVal & 0x00FF ) >> 4 );
+		if(tx_high_half_byte & 0x40) DB6_HIGH();
+		else DB6_LOW();
 		
+		if(tx_high_half_byte & 0x20) DB5_HIGH();
+		else DB5_LOW();
+		
+		if(tx_high_half_byte & 0x10) DB4_HIGH();
+		else DB4_LOW();
+		
+		Delay_us(1);
+		
+		E_LOW();
+		tx_high_half_byte = (symbol << 4);	 // shift low half byte into high half byte data
+
+		Delay_us(1);
 	}
-	
-	GPIO_ResetBits( LCD_PORT, A0 );
-	delay_400ns(1);
+
+	RS_LOW();
+
+	Delay_us(1);
 }
 
 

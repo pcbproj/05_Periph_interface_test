@@ -59,7 +59,7 @@
         <file file_name="Lib/src/usart.c" />
         <file file_name="Lib/src/adc.c" />
         <file file_name="Lib/src/lcd1602.c">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
+          <configuration Name="Debug" build_exclude_from_build="No" />
         </file>
         <file file_name="Lib/src/delay.c" />
         <file file_name="Lib/src/1wire.c" />
@@ -71,7 +71,7 @@
         <file file_name="Lib/inc/usart.h" />
         <file file_name="Lib/inc/adc.h" />
         <file file_name="Lib/inc/lcd1602.h">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
+          <configuration Name="Debug" build_exclude_from_build="No" />
         </file>
         <file file_name="Lib/inc/delay.h" />
         <file file_name="Lib/inc/1wire.h" />

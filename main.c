@@ -134,16 +134,23 @@ int main(void) {
 	char CAN2_RxData[CAN_RX_DATA_LEN] = {};
 
   	uint16_t ADC1_sample = 0;
+	uint8_t scratch_array[SCRATCH_BYTE_LEN] = {};
+	uint16_t rx_temper;
+	float temper_to_show;
   	
+
   	RCC_Init();
   	
   	GPIO_Init();
+	GPIO_1WireInit();
   	
 	USART6_Init();
 
 	CAN2_Init();
 
 	ADC1_Init();
+
+
   	
   	SysTick_Config(84);		// настройка SysTick таймера на время отрабатывания = 1 мкс
    
@@ -171,23 +178,18 @@ int main(void) {
 		Delay_ms(1);
 
 		if(CAN2_RxState == CAN2_OK){		// CAN2 frame received
-				CAN2_TxState = CAN2_SendMSG(CAN2_RxFrameID,			// идентификатор фрейма CAN 
-											CAN2_RxDataLen,		// длина поля данных в байтах 0 - 8 байт
-											CAN2_RxData				// массив байтов, для  отправки по CAN
-											);
-				if(!CAN2_TxState) CAN2_RxFlag = 1;	// flag for succsessfull CAN2 reception and answer
+			CAN2_TxState = CAN2_SendMSG(CAN2_RxFrameID,			// идентификатор фрейма CAN 
+										CAN2_RxDataLen,			// длина поля данных в байтах 0 - 8 байт
+										CAN2_RxData				// массив байтов, для  отправки по CAN
+										);
 
 		}
 
-		//========= USART6 testing: loop received data byte =============
-		
-		
+		//==== USART6 testing: return received data byte from USART6_RX  into USART6_TX
 		if(USART6->SR & USART_SR_RXNE) {
 			usart6_test_byte = USART6->DR;
-
-			usart6_send(&usart6_test_byte, 1);
 			Delay_ms(1);
-
+			usart6_send(&usart6_test_byte, 1);
 		} 
 
 
@@ -196,12 +198,20 @@ int main(void) {
 		ADC1_sample = ADC1_Read();
 		
 
-
 		//==== DS18B20 temper measure ============
+		Convert_Temperature();
+
+		ReadScratchpad(scratch_array);
+		rx_temper = Scratch_To_Temperature(scratch_array);	// TODO проверить на отрицательные температуры
+		temper_to_show = Temperature_CalcFloat(rx_temper);	// TODO проверить на отрицательные температуры
+
+
+		//======= LCD1602 show data ===========
+	
+
 		
-
-
-
+		
+		Delay_ms(1000);	// wait for 1 sec for next iteration 
 
 	}	// while(1)
 	  
