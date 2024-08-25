@@ -30,6 +30,23 @@ void LCD_GPIOInit(void){
 }
 
 
+void LCD_DataPinsInput(void){
+	LCD_DB7_PORT -> MODER &= ~( 1 << DB7_PIN_NUM * 2);	// pin for LCD_DB4 - DB7 configured as output 
+	LCD_DB6_PORT -> MODER &= ~( 1 << DB6_PIN_NUM * 2);
+	LCD_DB5_PORT -> MODER &= ~( 1 << DB5_PIN_NUM * 2);
+	LCD_DB4_PORT -> MODER &= ~( 1 << DB4_PIN_NUM * 2);
+}
+
+
+void LCD_DataPinsOutput(void){
+	LCD_DB7_PORT -> MODER |= ( 1 << DB7_PIN_NUM * 2);	// pin for LCD_DB4 - DB7 configured as output 
+	LCD_DB6_PORT -> MODER |= ( 1 << DB6_PIN_NUM * 2);
+	LCD_DB5_PORT -> MODER |= ( 1 << DB5_PIN_NUM * 2);
+	LCD_DB4_PORT -> MODER |= ( 1 << DB4_PIN_NUM * 2);
+}
+
+
+
 
   
 void LCD_Write4b( uint8_t data_com, uint8_t symbol, int half_bytes_number ){
@@ -102,7 +119,7 @@ uint8_t Read_BF_Addr( void ){
 	
 	GPIO_ResetBits( LCD_PORT, RW );	 // set bit RW for reading
 	
-	LCD_PortInit();
+	LCD_DataPinsOutput();
 
 	GPIO_Write( LCD_PORT, 0x0000 );	 // clear bits A0, E and RW
 		

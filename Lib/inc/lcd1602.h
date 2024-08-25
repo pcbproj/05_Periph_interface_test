@@ -146,6 +146,9 @@ data_com - select write data or write command
 */
 void LCD_Write4b( uint8_t data_com, uint8_t symbol, int half_bytes_number );
 
+void LCD_DataPinsInput(void);
+
+void LCD_DataPinsOutput(void);
 
 /*---------- LCD COMMANDS -----------------*/
 void ClearDisplay( void );
